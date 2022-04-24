@@ -3,6 +3,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.gridlayout import GridLayout
 from kivy.core.window import Window
 from kivy.uix.widget import Widget
+from kivy.uix.button import Button
 
 
 #https://likegeeks.com/kivy-tutorial/#Image_in_Kivy_Button
@@ -18,19 +19,26 @@ class SutomGridLayout(App):
 	def build(self):	
 		self.window = GridLayout()
 		self.window.cols = 1
-		self.window.pos_hint = {"center_x": 0.5, "center_y":0.5}
+		self.window.size_hint = (0.7, 0.9)
+		self.window.pos_hint = {"center_x": 0.5, "center_y": 0.5}
 
 		self.grid = GridLayout(
 			cols=5,
 			rows=6,
-			size_hint=(.1,.1)
+			size_hint=(0.3,0.5)
 			)
 		self.window.add_widget(self.grid)
+
+		self.button = Button(
+			text= "BOO"
+			)
+		self.grid.add_widget(self.button)
 		
 		self.user_answer = TextInput(
-			size_hint=(.5,.1),
-			font_size=30,
-			multiline=False
+			multiline= False,
+			size_hint= (1,0.1),
+			font_size= 30,
+			halign= 'center'
 			)
 
 		self.window.add_widget(self.user_answer)
