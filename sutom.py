@@ -1,34 +1,45 @@
-from functions import check_user_try, define_color, debugger
+from functions import check_user_try, define_color, debugger, winning_grid
+from interface import send_text
 secret_word = "bateau"
-
-secret_word_lenght = len(secret_word)
-
-user_try = []
-playable_array = []
-
 secret_word_in_array = []
 
-#Management of the answer
-for letter in secret_word :
-	secret_word_in_array.append(letter)
+win = 0
 
-print (secret_word_in_array)
+all_tries = []
 
-#Managment of the user's try
-for user_letter in input("Votre proposition :") :
-	user_try.append(user_letter)
-print (user_try)
 
-#Check the user's try
-if debugger(user_try, secret_word_lenght) == 0:
+def sutom_app():
+	#Management of the answer
+	for letter in secret_word :
+		secret_word_in_array.append(letter)
 
-	print (define_color(check_user_try(user_try, secret_word_lenght, secret_word_in_array)))
+	for i in range(0, 6):
+		user_try = []
+		#Managment of the user's try
+		for user_letter in send_text() : #input("Votre proposition:")
+			user_try.append(user_letter)
 
-elif debugger(user_try, secret_word_lenght) == 2:
-	print("Your porposition is to short")
+		#Check the user's try
+		if debugger(user_try, len(secret_word)) == 0:
+			all_tries.append(user_try)
+			if (define_color(check_user_try(user_try, len(secret_word), secret_word_in_array)) != winning_grid(len(secret_word))) and (i < 6) :
+				print (define_color(check_user_try(user_try, len(secret_word), secret_word_in_array)))
 
-elif debugger(user_try, secret_word_lenght) == 3:
-	print("Your proposition is to long")
+			if (define_color(check_user_try(user_try, len(secret_word), secret_word_in_array)) == winning_grid(len(secret_word))) and (i <= 6):
+				all_tries.append(user_try)
+				win = 1
+				print (define_color(check_user_try(user_try, len(secret_word), secret_word_in_array))), win
 
-else :
-	print("Error")
+			if (define_color(check_user_try(user_try, len(secret_word), secret_word_in_array)) != winning_grid(len(secret_word))) and (i > 6) :
+				print ("You loose")
+
+		elif debugger(user_try, len(secret_word)) == 2:
+			print("Your porposition is to short")
+
+		elif debugger(user_try, len(secret_word)) == 3:
+			print("Your proposition is to long")
+
+		else :
+			print("Error")
+
+sutom_app()

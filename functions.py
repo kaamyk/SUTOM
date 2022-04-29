@@ -1,5 +1,4 @@
 def check_user_try(user_word, lenght, answer):
-	print("in function")
 
 	result = []
 
@@ -55,3 +54,13 @@ def debugger(user_word, answer_lenght):
 	
 	else:
 		return 1
+
+
+def winning_grid(lenght):
+	grid = []
+
+	for i in range(0,lenght):
+		grid.append("RED")
+
+	return grid
+
